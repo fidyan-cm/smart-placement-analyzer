@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-t!)f@%5m38stv=vdii(z8=kd@k@zr8%fnh#yec53pl#98f#9j@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://smart-placement-analyzer-production.up.railway.app',
+]
 
 
 # Application definition
