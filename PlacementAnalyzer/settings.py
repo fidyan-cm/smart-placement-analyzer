@@ -150,3 +150,7 @@ DATABASES = {
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://smart-placement-analyzer-production.up.railway.app',
+]
