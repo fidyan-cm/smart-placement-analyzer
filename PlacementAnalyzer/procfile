@@ -1,0 +1,1 @@
+web: gunicorn PlacementAnalyzer.wsgi --log-file -

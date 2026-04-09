@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediction History</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+
+  <h2 class="fw-bold mb-4">Prediction History</h2>
+
+  {% if students %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover bg-white shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th><th>CGPA</th><th>Internships</th>
+          <th>Projects</th><th>Tech Score</th><th>HackerRank</th>
+          <th>Result</th><th>Probability</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td>{{ s.name }}</td>
+          <td>{{ s.cgpa }}</td>
+          <td>{{ s.internships }}</td>
+          <td>{{ s.projects }}</td>
+          <td>{{ s.technical_skills_score }}</td>
+          <td>{{ s.hackerrank_score }}</td>
+          <td>
+            {% if s.placement_status == 'High Probability of Placement' %}
+              <span class="badge bg-success">Placed</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">Needs Work</span>
+            {% endif %}
+          </td>
+          <td>{{ s.prediction_probability|floatformat:2 }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p class="text-muted">No predictions yet. <a href="{% url 'predict' %}">Make one →</a></p>
+  {% endif %}
+
+</div>
+</body>
+</html>
