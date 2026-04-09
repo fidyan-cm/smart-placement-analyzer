@@ -5,121 +5,101 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: Helvetica, Arial, sans-serif;
       font-size: 13px;
       color: #1a1a2e;
-      background: #ffffff;
       padding: 40px;
     }
 
-    /* ── Header ── */
+    /* Header */
     .header {
-      background: linear-gradient(135deg, #0d6efd, #0a58ca);
+      background-color: #0d6efd;
       color: white;
-      padding: 28px 32px;
-      border-radius: 12px;
-      margin-bottom: 28px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
     }
-    .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-    .header p  { font-size: 12px; opacity: 0.85; }
-    .header .badge-result {
+    .header h1 { font-size: 20px; font-weight: bold; margin-bottom: 4px; color: white; }
+    .header p  { font-size: 11px; color: #dce8ff; margin-bottom: 8px; }
+    .badge-result {
       display: inline-block;
-      margin-top: 12px;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
     }
-    .badge-success { background: #198754; }
-    .badge-danger  { background: #dc3545; }
+    .badge-success { background-color: #198754; }
+    .badge-danger  { background-color: #dc3545; }
 
-    /* ── Section titles ── */
+    /* Section title */
     .section-title {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #6c757d;
-      margin-bottom: 12px;
-      padding-bottom: 6px;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
       border-bottom: 1px solid #e9ecef;
     }
 
-    /* ── Cards ── */
-    .card {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 20px 24px;
+    /* Stats row */
+    .stats-table {
+      width: 100%;
       margin-bottom: 20px;
     }
-
-    /* ── Stats grid ── */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-    .stat-box {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 16px;
+    .stats-table td {
+      width: 33%;
       text-align: center;
+      background-color: #f8f9fa;
+      padding: 14px;
     }
-    .stat-box .val  { font-size: 24px; font-weight: 700; color: #0d6efd; }
-    .stat-box .lbl  { font-size: 11px; color: #6c757d; margin-top: 4px; }
+    .stat-val { font-size: 22px; font-weight: bold; color: #0d6efd; }
+    .stat-lbl { font-size: 10px; color: #6c757d; margin-top: 4px; }
 
-    /* ── Gap table ── */
-    table {
+    /* Card */
+    .card {
+      background-color: #f8f9fa;
+      padding: 18px 22px;
+      margin-bottom: 18px;
+    }
+
+    /* Gap table */
+    .gap-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
     }
-    th {
-      background: #e9ecef;
-      padding: 8px 12px;
+    .gap-table th {
+      background-color: #e9ecef;
+      padding: 7px 10px;
       text-align: left;
-      font-weight: 600;
       font-size: 11px;
+      font-weight: bold;
     }
-    td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; }
-    tr:last-child td { border-bottom: none; }
-    .met   { color: #198754; font-weight: 600; }
-    .unmet { color: #dc3545; font-weight: 600; }
+    .gap-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .met   { color: #198754; font-weight: bold; }
+    .unmet { color: #dc3545; font-weight: bold; }
 
-    /* ── Progress bar (CSS only for PDF) ── */
-    .bar-wrap {
-      background: #e9ecef;
-      border-radius: 4px;
-      height: 7px;
-      width: 120px;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .bar-fill {
-      height: 7px;
-      border-radius: 4px;
-      background: #0d6efd;
-    }
-
-    /* ── Recommendations ── */
+    /* Recommendations */
     .rec-item {
       border-left: 4px solid #0d6efd;
-      padding: 7px 12px;
-      margin-bottom: 8px;
-      background: #f0f5ff;
-      border-radius: 0 6px 6px 0;
+      padding: 6px 10px;
+      margin-bottom: 7px;
+      background-color: #f0f5ff;
       font-size: 12px;
     }
 
-    /* ── Footer ── */
+    /* Footer */
     .footer {
-      margin-top: 32px;
+      margin-top: 28px;
       text-align: center;
       font-size: 10px;
       color: #adb5bd;
       border-top: 1px solid #e9ecef;
-      padding-top: 14px;
+      padding-top: 12px;
     }
   </style>
 </head>
@@ -128,38 +108,39 @@
   <!-- Header -->
   <div class="header">
     <h1>Smart Placement & Skill Gap Report</h1>
-    <p>Generated on {{ generated_on }} &nbsp;·&nbsp; Smart Placement Analyzer</p>
+    <p>Generated on {{ generated_on }}</p>
     <div class="badge-result badge-{{ result.badge }}">
       {{ result.status }}
     </div>
   </div>
 
   <!-- Stats -->
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="val">{{ result.probability }}%</div>
-      <div class="lbl">Placement Probability</div>
-    </div>
-    <div class="stat-box">
-      <div class="val">{{ result.gap_report.readiness_score }}%</div>
-      <div class="lbl">Readiness Score</div>
-    </div>
-    <div class="stat-box">
-      <div class="val">{{ result.gap_report.gaps_met }}/{{ result.gap_report.total_fields }}</div>
-      <div class="lbl">Benchmarks Met</div>
-    </div>
-  </div>
+  <table class="stats-table" cellspacing="6">
+    <tr>
+      <td>
+        <div class="stat-val">{{ result.probability }}%</div>
+        <div class="stat-lbl">Placement Probability</div>
+      </td>
+      <td>
+        <div class="stat-val">{{ result.gap_report.readiness_score }}%</div>
+        <div class="stat-lbl">Readiness Score</div>
+      </td>
+      <td>
+        <div class="stat-val">{{ result.gap_report.gaps_met }}/{{ result.gap_report.total_fields }}</div>
+        <div class="stat-lbl">Benchmarks Met</div>
+      </td>
+    </tr>
+  </table>
 
-  <!-- Student profile -->
+  <!-- Skill gap breakdown -->
   <div class="card">
-    <div class="section-title">Student Profile</div>
-    <table>
+    <div class="section-title">Skill Gap Breakdown</div>
+    <table class="gap-table">
       <tr>
         <th>Field</th>
         <th>Your Score</th>
         <th>Benchmark</th>
         <th>Status</th>
-        <th>Progress</th>
       </tr>
       {% for field, info in result.gap_report.gaps.items %}
       <tr>
@@ -172,13 +153,6 @@
           {% else %}
             <span class="unmet">↑ {{ info.gap }} gap</span>
           {% endif %}
-        </td>
-        <td>
-          <div class="bar-wrap">
-            {% widthratio info.student info.benchmark 100 as pct %}
-            <div class="bar-fill" style="width: {% if pct > 100 %}100{% else %}{{ pct }}{% endif %}%;
-              background: {% if info.met %}#198754{% else %}#ffc107{% endif %};"></div>
-          </div>
         </td>
       </tr>
       {% endfor %}
@@ -193,14 +167,14 @@
         <div class="rec-item">{{ rec }}</div>
       {% endfor %}
     {% else %}
-      <p style="color:#198754; font-weight:600;">🎉 All benchmarks met — you are placement ready!</p>
+      <p style="color:#198754; font-weight:bold;">All benchmarks met — you are placement ready!</p>
     {% endif %}
   </div>
 
   <!-- Footer -->
   <div class="footer">
     Smart Placement & Skill Gap Analyzer &nbsp;·&nbsp;
-    This report was auto-generated by an ML model trained on placement data.
+    Auto-generated by an ML model trained on placement data.
   </div>
 
 </body>

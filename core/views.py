@@ -134,11 +134,11 @@ def download_report(request):
     })
 
     result = {
-        'name':       data['name'],
-        'status':     data['status'],
-        'badge':      data['badge'],
+        'name':        data['name'],
+        'status':      data['status'],
+        'badge':       data['badge'],
         'probability': data['probability'],
-        'gap_report': gap_report,
+        'gap_report':  gap_report,
     }
 
     html_string = render_to_string('core/report_pdf.html', {
@@ -147,11 +147,20 @@ def download_report(request):
     })
 
     try:
-        from weasyprint import HTML as WeasyHTML
-        pdf_file = WeasyHTML(string=html_string).write_pdf()
-        response = HttpResponse(pdf_file, content_type='application/pdf')
+        from xhtml2pdf import pisa
+        from io import BytesIO
+
+        buffer   = BytesIO()
+        pisa_status = pisa.CreatePDF(html_string, dest=buffer)
+
+        if pisa_status.err:
+            return HttpResponse('PDF generation failed.', status=500)
+
+        buffer.seek(0)
         filename = f"placement_report_{data['name'].replace(' ', '_')}.pdf"
+        response = HttpResponse(buffer, content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
         return response
+
     except Exception as e:
         return HttpResponse(f"PDF generation failed: {str(e)}", status=500)
